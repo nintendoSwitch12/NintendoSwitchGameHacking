@@ -468,3 +468,7 @@ v18 = (unsigned int)calc(1, a6, AnalyzedDimensionEv, SHIDWORD(AnalyzedDimensionE
           v25[4] = (__int64)obj;
           *v25 = v26 + 16;
           goto LABEL_13;
+...
+```
+이후 파싱한 데이터를 토대로 size를 계산하거나, 렌더링 관련 작업을 수행하는 등 여러가지 작업을 수행한다.
+앞서 디핑을 통해 미리 심볼들이 복구했으니, 이를 이용해 GPU 관련 렌더링 함수들을 미리 식별할 수 있다.

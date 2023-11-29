@@ -7,8 +7,6 @@
 
 #include "sdk.h"
 
-void (*GenerateHmacSha256Mac)(void* out_hash, const size_t hash_size, const void* data_to_get_hash, const size_t data_size, const void* key, const size_t key_size) = (void*)(kSDKAddress + 0x173510);
-
 void* LoadSDK(const char* sdk_path)
 {
 

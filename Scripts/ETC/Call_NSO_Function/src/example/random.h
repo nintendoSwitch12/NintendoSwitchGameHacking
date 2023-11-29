@@ -1,5 +1,5 @@
-#ifndef SWITCH_RANDOM_H_
-#define SWITCH_RANDOM_H_
+#ifndef __SWITCH_RANDOM_H_
+#define __SWITCH_RANDOM_H_
 
 #include <stdint.h>
 

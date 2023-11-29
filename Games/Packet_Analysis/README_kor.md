@@ -62,11 +62,13 @@ IPC를 통해 시스템 서비스에게 요청을 보내, 그 시스템 서비�
 ### Message buffer 사용
 --- 
 패킷을 보내기전에 Message buffer에 패킷의 내용을 미리 담는다.
+
 ![img](./img/1.png)
 
 if문을 통화하려면 ARM64_SYSREG(3, 3, 13, 0, 3)이 a2랑 같아야한다.
 a2는 thread local storage 위치에 있다. 
 즉 thread local storage가 message buffer로 이용된다는 것을 알 수 있다.
+
 ![img2](./img/2.png)
 
 TPIDR_EL0에서 per-thread structure를 저장한다[1]. 즉 a2가 thread local storage라는 것을 알 수 있다.

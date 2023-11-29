@@ -13,4 +13,4 @@
 - [MTP-Utils-Library](https://github.com/Uniguri/mtp-utils-library/README_kor.md)
 
 ## ETC
-- [Call NSO Functions](./ETC/Call_NSO_Function/README.md)
+- [Call NSO Functions](./ETC/Call_NSO_Function/README_kor.md)

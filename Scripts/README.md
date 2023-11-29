@@ -13,4 +13,4 @@ List of scripts and tools written while analyzing Nintendo Switch games.
 - [MTP-Utils-Library](https://github.com/Uniguri/mtp-utils-library/)
 
 ## ETC
-- [Call NSO Functions](./ETC/Call_NSO_Function/README.md)
+- [Call NSO Functions](./ETC/Call_NSO_Function/)

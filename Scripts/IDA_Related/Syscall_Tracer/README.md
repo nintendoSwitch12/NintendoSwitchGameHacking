@@ -2,7 +2,7 @@
 
 ## 개요
 
-```python
+```C++
 __int64 __fastcall nn::sf::hipc::Receive(_BYTE *a1, int a2, __int64 a3, __int64 a4)
 {
   __int64 result; // x0
@@ -27,7 +27,7 @@ _DWORD *__fastcall sub_710037ECEC(_DWORD *result, int a2)
 
 ```
 
-```python
+```
 .text:000000710037ECE8                 RET
 .text:000000710037ECE8 ; End of function sub_710037ECD4
 .text:000000710037ECE8
@@ -90,21 +90,15 @@ _DWORD *__fastcall sub_710037ECEC(_DWORD *result, int a2)
 .text:000000710037ED30                 RET
 ```
 
-nintendo sdk도 메모리에 같이 로드된다.
+nintendo sdk도 메모리에 같이 로드된다. 이는 일종의 라이브러리같은 역할이다. SDK 영역에 연속적으로 syscall wrapper가 있다.
 
-일종의 라이브러리같은 역할이다.
-
-이때 이런식으로 라이브러리 영역에 연속적으로 syscall wrapper가 있다.
-
-이 부분을 후킹하면 도움을 받을 수 있지 않을까 싶어서 제작하게 되었다.
+이 부분을 호출하는 함수를 확인하면, 어떤 함수에서 어떤 기능을 이용하는지 알 수 있을 것이라고 생각하여 이 스크립트를 개발했다.
 
 ## 기능
 
-1) Nintendo SDK 영역에 syscall wrapper 존재한다. 이 영역을 자동으로 syscall 함수로 인식시키고 이름을 변경한다.
-
-2) bp를 걸고, 그 bp에 콜백 함수를 지정해서 그 wrapper 함수를 호출하는 모든 함수들에 대해 콜스택을 수집하고 결과를 미리 저장한다.
-
-3) 결과를 조회하거나, 추적이후 원래대로 상태를 되돌릴 수 있다.
+1. Nintendo SDK 영역에 syscall wrapper 존재한다. 이 영역을 자동으로 syscall 함수로 인식시키고 이름을 변경한다.
+2. bp를 걸고, 그 bp에 콜백 함수를 지정해서 그 wrapper 함수를 호출하는 모든 함수들에 대해 콜스택을 수집하고 결과를 미리 저장한다.
+3. 결과를 조회하거나, 추적이후 원래대로 상태를 되돌릴 수 있다.
 
 ## 사용 방법
 
@@ -122,10 +116,10 @@ nintendo sdk도 메모리에 같이 로드된다.
 11. 캡쳐된 call stack을 보고 싶으면 Output view에서 gdb를 python으로 바꾸고tracer.listAllCallStack() 입력
 12. 특정 syscall의 call stack만 보고 싶으면 tracer.viewCallStack(33) 이렇게 원하는 syscall 숫자만 넣음
 
-![Untitled](./img/Syscall_Tracer_Result.png)
+![Syscall Tracer Result](./img/Syscall_Tracer_Result.png)
 
-1. result에 call stack이 저정되어 있는데, 다시 초기화하고 싶으면 tracer.result = {}
-2. 모든 작업이 다 끝났으면 tracer.afterTrace()
+1. result에 call stack이 저정되어 있는데, 다시 초기화하고 싶으면 `tracer.result = {}`
+2. 모든 작업이 다 끝났으면 `tracer.afterTrace()`
 
 ## syscall wrapper 찾는 법
 코드 영역의 처음부터 보면서, SVC가 많은 부분을 찾거나 게임을 멈췄을 때 걸리는 SVC 주변을 보면 된다.
@@ -136,6 +130,5 @@ nintendo sdk도 메모리에 같이 로드된다.
 
 다음 두 가지를 확인해주면 된다.
 
-1) Rebase가 정상적으로 되었는지 확인.
-
-2) syscall wrapper 영역이 정상적으로 undefined 상태인지 확인. 만약 안되어있으면 마우스로 선택하고 u로 undefine 시켜주면 된다.
+1. Rebase가 정상적으로 되었는지 확인.
+2. syscall wrapper 영역이 정상적으로 undefined 상태인지 확인. 만약 안되어있으면 마우스로 선택하고 u로 undefine 시켜주면 된다.

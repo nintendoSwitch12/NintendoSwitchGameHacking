@@ -24,7 +24,7 @@ NSO 파일의 함수를 QEMU에서 실행하기 위한 과정은 다음과 같�
 
 SDK 함수의 GenerateHmacSha256Mac을 호출하여, 썸네일 파일의 해시를 구하는 예제는 다음 주소에서 찾을 수 있다.
 
-[Example: Call GenerateHmacSha256Mac](./src/example/main.cpp)
+[Example: Call GenerateHmacSha256Mac](./src/example/)
 
 [^1]: https://switchbrew.org/wiki/NSO
 [^2]: https://github.com/pgarba/SwitchIDAProLoader

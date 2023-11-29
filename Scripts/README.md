@@ -1,5 +1,6 @@
 # Scripts And Tools
 닌텐도 스위치의 게임에서 취약점을 분석하면서 사용 및 작성한 각종 스크립트와 툴입니다.
+List of scripts and tools written while analyzing Nintendo Switch games.
 
 ## IDA Related
 - [Switch Mapper](./IDA_Related/Switch_Mapper/)

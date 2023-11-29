@@ -13,7 +13,7 @@ Therefore, it was difficult to check the SDK functions where the symbols exist. 
 
 Enter the following command in the IDA loading the binary you want to extract.
 
-> [!importatnt]
+> [!IMPORTANT]
 > The position of each function in the binary to be extracted must be the same as the corresponding function in the binary to be applied. 
 > In simple terms, if you are extracting functions from an SDK, the base of the SDK in the binary to be extracted and the binary to be applied must be the same.
 

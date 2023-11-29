@@ -1,6 +1,16 @@
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Syscall Tracer](#syscall-tracer)
+  - [Overview](#overview)
+  - [Features](#features)
+  - [Usage](#usage)
+  - [How to find syscall wrapper](#how-to-find-syscall-wrapper)
+  - [Trouble shooting](#trouble-shooting)
+
+
 # Syscall Tracer
 
-## 개요
+## Overview
 
 ```C++
 __int64 __fastcall nn::sf::hipc::Receive(_BYTE *a1, int a2, __int64 a3, __int64 a4)
@@ -90,17 +100,25 @@ _DWORD *__fastcall sub_710037ECEC(_DWORD *result, int a2)
 .text:000000710037ED30                 RET
 ```
 
-nintendo sdk도 메모리에 같이 로드된다. 이는 일종의 라이브러리같은 역할이다. SDK 영역에 연속적으로 syscall wrapper가 있다.
+nintendo에서 게임을 실행할 때는 sdk도 메모리에 같이 로드된다. 이는 일종의 라이브러리같은 역할이다. SDK 영역에 연속적으로 syscall wrapper가 있다.
 
 이 부분을 호출하는 함수를 확인하면, 어떤 함수에서 어떤 기능을 이용하는지 알 수 있을 것이라고 생각하여 이 스크립트를 개발했다.
 
-## 기능
+When you run a game on Nintendo, the SDK is also loaded into memory. It acts as a kind of library. In the SDK area, there is a series of syscall wrappers.
+
+I developed this script because I thought that if I could see which functions were calling this part, I could figure out which functions were using which features.
+
+## Features
 
 1. Nintendo SDK 영역에 syscall wrapper 존재한다. 이 영역을 자동으로 syscall 함수로 인식시키고 이름을 변경한다.
 2. bp를 걸고, 그 bp에 콜백 함수를 지정해서 그 wrapper 함수를 호출하는 모든 함수들에 대해 콜스택을 수집하고 결과를 미리 저장한다.
 3. 결과를 조회하거나, 추적이후 원래대로 상태를 되돌릴 수 있다.
 
-## 사용 방법
+1. syscall wrapper exists in the Nintendo SDK area. Automatically recognize this area as the syscall function and rename it.
+2. Call a BP, assign a callback function to the BP to collect the callstack for all functions that call the wrapper function and save the result in advance.
+3. retrieve the results, or revert to the original state after tracing.
+
+## Usage
 
 1. 게임을 실행
 2. ida에서 gdb attach
@@ -116,19 +134,36 @@ nintendo sdk도 메모리에 같이 로드된다. 이는 일종의 라이브러�
 11. 캡쳐된 call stack을 보고 싶으면 Output view에서 gdb를 python으로 바꾸고tracer.listAllCallStack() 입력
 12. 특정 syscall의 call stack만 보고 싶으면 tracer.viewCallStack(33) 이렇게 원하는 syscall 숫자만 넣음
 
+1. run the game
+2. gdb attach from ida
+3. Edit → Segments → Delete segment 
+4. in the main function of the source code, write down where the syscall wrapper of the desired game starts and ends in startSys and endSys.
+5. in the same main function, enter the desired syscall number in the target list (ex: 0x21(SendSyncRequest) )
+    Alternatively, you can use the getSysNum(syscall_name: str) function. 6.
+6. run File → script file → systracer file (it should take bp)
+7. go to Debugger → Debugger Windows → Thread list
+8. run the game until you find the desired thread
+9. click on the desired thread and run it with F9
+10. when SIGTRAP pops up, click edit exception and uncheck suspend program
+11. if you want to see the captured call stack, replace gdb with python in the Output view and type tracer.listAllCallStack()
+12. if you want to see only the call stack of a specific syscall, enter tracer.viewCallStack(33) with only the desired syscall number like this
+
 ![Syscall Tracer Result](./img/Syscall_Tracer_Result.png)
 
 1. result에 call stack이 저정되어 있는데, 다시 초기화하고 싶으면 `tracer.result = {}`
 2. 모든 작업이 다 끝났으면 `tracer.afterTrace()`
 
-## syscall wrapper 찾는 법
-코드 영역의 처음부터 보면서, SVC가 많은 부분을 찾거나 게임을 멈췄을 때 걸리는 SVC 주변을 보면 된다.
+1. result has the call stack saved, if you want to reinitialize it, use `tracer.result = {}`
+2. when all is said and done, call `tracer.afterTrace()`
+
+## How to find syscall wrapper
+You can start at the beginning of the code region and look around the SVCs where you find a lot of SVCs, or where you get stuck when you stop the game.
 
 ## Trouble shooting
 
-특정 조건에서 트레이싱이 안되는 이슈가 있다.
+There is an issue with tracing not working under certain conditions.
 
-다음 두 가지를 확인해주면 된다.
+You can check two things
 
-1. Rebase가 정상적으로 되었는지 확인.
-2. syscall wrapper 영역이 정상적으로 undefined 상태인지 확인. 만약 안되어있으면 마우스로 선택하고 u로 undefine 시켜주면 된다.
+1. make sure your rebase is working properly.
+2. check if the syscall wrapper area is properly undefined. If not, you can select it with the mouse and undefine it with u.

@@ -1,0 +1,44 @@
+--- ./HexRaysCodeXplorer/GCCObjectFormatParser.cpp	2023-09-13 11:17:03.134906100 +0900
++++ ./HexRaysCodeXplorer_original/GCCObjectFormatParser.cpp	2023-06-18 14:24:47.000000000 +0900
+@@ -42,9 +42,6 @@
+ #include "Debug.h"
+ #include "ReconstructableType.h"
+ #include <stack>
+-#include <unordered_set>
+-
+-#include "CustomUtils.hpp"
+ 
+ #define vmi_class_type_info_name "_ZTVN10__cxxabiv121__vmi_class_type_infoE"
+ #define class_type_info_name "_ZTVN10__cxxabiv117__class_type_infoE"
+@@ -324,11 +321,6 @@
+ 		}
+ 		char buffer[256];
+ 
+-		// add demangle routine ((added))
+-		qstring demangled_name;
+-		std::unordered_set<std::string> demangled_name_set;
+-		// end demangle routine
+-
+ 		for (unsigned int i = 0; i < vtblInfo->vtablesCount; ++i) {
+ 			unsigned int offset = (unsigned int)(-(signed int)vtblInfo->vtables[i].ptrDiff);
+ 			std::string parentName = vtblInfo->vtables[i].name.c_str();
+@@ -376,7 +368,7 @@
+ 					member->name = "purecall";
+ 					member->name += std::to_string(j);
+ 				}
+-
++					
+ 				else {
+ 					if (ph.id == PLFM_ARM)
+ 						funcPtr &= (ea_t)-2;
+@@ -392,10 +384,6 @@
+ 					}
+ 					if (method_name.length() == 0)
+ 						method_name.sprnt("___refunc_%x", funcPtr);
+-					// add demangle routine ((added))
+-					if (custom_utils::make_demangled_name(demangled_name, method_name, demangled_name_set))
+-						method_name = std::move(demangled_name);
+-					// end demangle routine
+ 					member->name = method_name.c_str();
+ 				}
+ 

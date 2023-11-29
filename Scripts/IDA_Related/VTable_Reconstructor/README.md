@@ -1,26 +1,28 @@
-# 개요
+# Outline
 
-Splatoon 2의 초기 버전은 각종 함수와 클래스의 심볼이 바이너리에 남아있다. 따라서 해당 버전들에서 사용된 클래스의 VTable을 Struct로 저장하여 다른 게임을 분석할 때 사용하고자 하였다. 이 글은 스플래툰 2의 VTable을 구조체 형식으로 추출하는 방법을 다룬다.
+Versions below 3.1.0 in Splatoon 2 contain symbols of majority of class and functions in the binary. Therefore, we were able to create structures from the Virtual Tables used in classes for easier analysis of other games. This article talks about how to extract structs from Vtables in Splatoon 2.
 
 # HexRaysCodeXplorer
 
-IDA 플러그인 중에 데이터 영역에 존재하는 VTable들과 클래스들을 Reconstruct 해주는 HexRaysCodeXplorer라는 플러그인이 존재한다[^1]. 이 플러그인을 사용하면, 심볼이 있는 클래스의 경우, 해당 클래스를 나타내는 구조체와 VTable을 나타내는 구조체를 만들어 준다. 
+One of the IDA plugins called HeyRaysCodeXplorer reconstruct VTables and classes in the data section[^1]. Using this plugin, in the case of a class with symbols, structures are created representing the class and the VTable respectively.
 
-하지만, 스플래툰 2에서 직접 사용한 결과 VTable에 저장된 method의 이름이 Mangling되어 있다.
+However, using the plugin in Splatoon 2 resulted in structures with mangled method names from VTable.
 
-따라서 mangling된 이름을 demangle하는 루틴을 추가하여 사용하였다.
+Therefore, we added a routine to demagle these method names. 
 
-# Demangle 되게 수정
+# Modified to demangle method names.
 
 ## Naming Routine
 
-각 클래스의 VTable의 method 이름을 정하는 루틴은 GCCObjectFormatParser.cpp의 buildReconstructableTypesRecursive 함수에 존재한다. 이 함수에서는 IDA SDK를 사용하여 VTable이 저장된 위치의 이름을 가져와 그 이름을 structure의 멤버로 저장한다.
+The routine for naming the method of VTable for each class exists in the buildReconstructibleTypeRecursive function in GCCOjectFormatParser.cpp. This function utilizes the IDA SDK to take the names of methods from the VTable and save them as a member of the structure.
 
-## 수정 방법
 
-GCCObjectFormatParser.cpp의 buildReconstructableTypesRecursive 함수에 Demangle 하는 루틴을 추가해주면 된다. Demangle 하는 함수는 IDA SDK에 구현되어 있으므로 이 함수를 사용하면 된다[^2]. 
+## Modification
 
-다만, 멤버의 이름은 똑같을 수 없지만, Demangle된 이름은 똑같을 수 있으므로 만약 같은 이름을 가질 경우, ‘_’를 붙이게 수정하였다. 또한 IDA의 구조체의 멤버의 이름에는 다음의 특수 문자들이 들어갈 수 없으므로, 이를 다른 문자로 바꾼다.
+In order to demangled names of methods, a routine can be added in the buildReconstructableTypesRecursive function of GCCObjectFormatParser.cpp. Since the demangling function is already defined in IDA SDK, we can just use it[^2].
+
+In case the demangled name is same as the mangled name, ‘__’ is added at the end of the name for differentiation. In addition, since certain special characters cannot be included in the member names of structures in IDA, they are replaced with other characters as below. 
+
 
 - `,` → `_C_` (Comma)
 - `` → `_S_` (Space)
@@ -30,7 +32,7 @@ GCCObjectFormatParser.cpp의 buildReconstructableTypesRecursive 함수에 Demang
 - `<` → `_L_` (Little)
 - `>` → `_G_` (Greater)
 
-## 수정된 소스 코드
+## Modified Source Code
 
 ### with args
 
@@ -40,9 +42,9 @@ GCCObjectFormatParser.cpp의 buildReconstructableTypesRecursive 함수에 Demang
 
 [Without args](./src/without_args/)
 
-# 후처리
+# Post Processing
 
-만들어진 VTable을 추출하고 다른 바이너리에서 로딩하려고 하면, 구조체 이름에 `<`나  ``, `,`, `*` 등이 포함되어 있어 불러올 수 없다. 따라서 이러한 문자가 포함된 구조체의 이름을 바꿔주는 스크립트를 작성하였다.
+If you try to load an extracted VTable from a different binary, it will cause an error since structure names cannot contain special characters such as `<`, ``, `,` and '*'. Therefore, we created a script that will change the structure name containing these characters. 
 [Script](./src/post_process.py)
 
 [^1]:https://github.com/zengfr/HexRaysCodeXplorer_plugin_for_ida_pro

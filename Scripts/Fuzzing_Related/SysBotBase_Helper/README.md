@@ -11,21 +11,15 @@
 
 # Sys-BotBase
 
-Sys-BotBase은 olliz0r가 만든 모듈로, CFW 환경에서 동작한다.[^1]. socket 통신 방식으로 기기로 명령을 내릴 수 있도록 지원한다. 이를 통해 스위치 게임 봇 등을 구현할 수 있다. 
-
-해당 모듈이 지원하는 명령은 다음 주소에서 찾을 수 있다.
-
-Sys-BotBase is a module created by olliz0r that works in the CFW environment[^1]. It supports socket communication to send commands to devices. This allows you to implement Switch game bots, etc. 
+Sys-BotBase is a module created by olliz0r that works in the CFW environment[^1]. It makes you can control a device using socket communication. This allows you to implement Switch game bots, etc. 
 
 The commands supported by this module can be found at the following address.
 
-[sys-botbase commands](https://github.com/olliz0r/sys-botbase/blob/master/commands.md)
+[sys-botbase commands list](https://github.com/olliz0r/sys-botbase/blob/master/commands.md)
 
 # Sys-BotBase Helper
 
-sys-botbase의 기능을 보다 편리하게 활용할 수 있도록 파이썬 클래스를 제작하였다. 이 클래스는 PC에서 sys-botbase로 명령을 내릴 때 자주 구현하는 몇 가지 기능을 미리 구현해둔 것으로, sys-botbase와 연동시킬 PC에서 사용할 수 있다. 
-
-To make it easier to utilize the features of sys-botbase, we have created a Python class. This class pre-implements some of the features that are often implemented when commanding sys-botbase from a PC, and can be used on a PC that will be interfacing with sys-botbase.
+To make it easier to utilize the features of sys-botbase, we have created a Python class. Using `SysBot` class, you can command to switch more easily.
 
 ## Example
 

@@ -1,3 +1,11 @@
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Overview](#overview)
+- [NSO file](#nso-file)
+- [Usage](#usage)
+- [Example](#example)
+
+
 # Overview
 
 An NSO file is an executable file that runs on the Nintendo Switch. The Nintendo Switch is based on AARCH64, so we thought it would be possible to run NSO files with QEMU. 

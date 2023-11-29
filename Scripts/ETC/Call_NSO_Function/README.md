@@ -8,7 +8,7 @@ NSO 파일은 닌텐도 스위치에서 실행되는 실행 파일이다. 닌텐
 
 NSO 파일의 포맷은 SwitchBrew에서 찾을 수 있다[^1]. 해당 글에 따르면 NSO 파일은 생략된 내용이 있는 ELF 파일이다. 
 
-NSO 파일은 SwitchIDAProLoader[^1]를 통해 IDA에 로드할 수 있고 분석할 수 있다.
+NSO 파일은 SwitchIDAProLoader[^2]를 통해 IDA에 로드할 수 있고 분석할 수 있다.
 
 # 실행 방법
 

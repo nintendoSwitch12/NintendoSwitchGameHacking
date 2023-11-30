@@ -97,6 +97,7 @@ class Mapper():
                 self.added.append(n)
                 s: ida_segment.segment_t = idaapi.get_segm_by_name(n)
                 s.bitness = 0x2 # 64
+                # s.bitness = 0x1 # 32
                 s.type = 0b11
                 s.perm = perm(x[2])
                 s.set_debugger_segm(False)

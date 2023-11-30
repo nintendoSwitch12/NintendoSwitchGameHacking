@@ -8,6 +8,10 @@ class Utils:
         return ida_bytes.get_qword(ea)
     
     @staticmethod
+    def GetDWORD(ea) -> int:
+        return ida_bytes.get_dword(ea)
+    
+    @staticmethod
     def GetName(ea) -> str:
         return ida_name.get_name(ea)
     
@@ -45,10 +49,12 @@ class Utils:
             definition = definition[t+2:]
         ret['args'] = args
         return ret
-
-    @staticmethod
+    
     def ModifyInvalidCharInFunctionName(name: str) -> str:
-        return name.replace('=', '_EQ_').replace('~', '_Tilde_')\
+        if('`' in name):
+            start_name = name.find('\'') + 1
+            name = name[start_name:]
+        return name.replace('-', '_').replace('=', '_EQ_').replace('~', '_Tilde_')\
             .replace('<', '_LTS_').replace('>', '_GTS_').replace(' ', '_S_')\
                 .replace(',', '_COMMA_').replace('*', '_STAR_')
         
@@ -77,20 +83,42 @@ class GOTReconstructor:
                 redup_count += 1
         
     
-    def Reconstruct(self):
+    def Reconstruct(self, offset: int = 8):
         start = self.__start
         now = start
         end = self.__end
         
         while(now < end):
             now_name = Utils.GetName(now)
-            if('qword_' in now_name or 'off_' in now_name):
-                ea = Utils.GetQWORD(now)
+            if('qword_' in now_name or 'off_' in now_name or 'unk_' in now_name):
+                if(offset == 8):
+                    ea = Utils.GetQWORD(now)
+                elif(offset == 4):
+                    ea = Utils.GetDWORD(now)
+                else:
+                    assert(0)
                 mangled_definition = Utils.GetName(ea)
                 if(mangled_definition != None and mangled_definition != ''):
-                    if('sub_' in mangled_definition or 'loc_' in mangled_definition or 'unk_' in mangled_definition):
-                        # self.__ReconstructWithoutSymbol(now, mangled_definition)
+                    do_pass = False
+                    do_not_follow_list = ['DynamicResolver', 'sub_', 'loc_', 'unk_', 'byte_', 'word_', 'dword_', 'qword_']
+                    for token in do_not_follow_list:
+                        if(token in mangled_definition):
+                            do_pass = True
+                    if(do_pass):
                         pass
                     else:
                         self.__ReconstructWithSymbol(now, mangled_definition)
-            now += 8
+            now += offset
+            
+if(__name__ == '__main__'):
+    pass
+    # # ACNH
+    # GOTReconstructor(0x0000000084536D70,0x000000008453A798).Reconstruct()
+    
+    # # MK8D
+    # GOTReconstructor(0x01F80674, 0x01F89AD8).Reconstruct(offset = 4)
+    # GOTReconstructor(0x011154A8, 0x011160F4).Reconstruct(offset = 4)
+    
+    # # Splatoon 2
+    # GOTReconstructor(0x837D38E8, 0x837E22E8).Reconstruct()
+    # GOTReconstructor(0x82CFF620, 0x82D50000).Reconstruct()

@@ -4,13 +4,17 @@
 JPEG 파싱을 담당하는 쓰레드가 존재한다.
 그 쓰레드에 대한 분석을 진행하였다.
 ### 구조
-[구조 사진]
+
+![](./img/1.png)
+
 ### 분석
 직접 JPEGMGR Thread를 분석해보면서 스위치 게임을 쓰레드들의 구조에 대해서 알 수 있다.
 `nn::os::detail::ThreadManagerImplByHorizon::CreateThread(nn::os::ThreadType *,void (*)(nn::os::ThreadType *),int)` 을 통해 초반에 Jpeg Mgr 쓰레드가 생성된다.
 초반에 tls같은 쓰레드의 로컬 스토리지를 초기화해준다.
 분석을 좀 더 수월하게 진행하기 위해서 Bindiff를 이용해서 디핑을 먼저 진행한다.
-[디핑 사진]
+
+![img](./img/2.png)
+
 File→BinDiff를 클릭해서 IDB를 이용해 디핑을 할 수 있다.
 그리고 원하는 부분을 클릭해서 symbol을 적용시킬 수 있다.
 

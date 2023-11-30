@@ -115,7 +115,7 @@ I developed this script because I thought that if I could see which functions we
 1. Run a game
 2. GDB attach using ida
 3. Edit → Segments → Delete segment 
-4. In the main function of the source code, write down where the syscall wrapper of the desired game starts and ends in startSys and endSys.
+4. In the main function of the source code, write down where the syscall wrapper of the desired game starts and ends in startSys and endSys respectively.
 5. In the same main function, enter the desired syscall number in the target list (ex: 0x21(SendSyncRequest) )
     1. Alternatively, you can use the getSysNum(syscall_name: str) function.
 6. Run File → script file → syscall_tracer.py file (it should take bp)
@@ -132,13 +132,13 @@ I developed this script because I thought that if I could see which functions we
 2. When all is said and done (when you want to delete all syscall break points), call `tracer.afterTrace()`
 
 ## How to find syscall wrapper
-You can start at the beginning of the code region and look around the SVCs where you find a lot of SVCs, or where you get stuck when you stop the game.
+You can start at the beginning of the code region and look around for a catalog of SVCs, or it is the location when you suspend the game using IDA.
 
-## Trouble shooting
+## Troubleshooting
 
 There is an issue with tracing not working under certain conditions.
 
-You can check two things
+You can check two things:
 
-1. Make sure your rebase is proper.
+1. Make sure your rebase address is correct.
 2. Check if the syscall wrapper area is properly undefined. If not, you can select it with the mouse and undefine it.

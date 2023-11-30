@@ -11,7 +11,7 @@
 - [Post Processing](#post-processing)
 
 
-# Outline
+# Overview
 
 Versions below 3.1.0 in Splatoon 2 contain symbols of majority of class and functions in the binary. Therefore, we were able to create structures from the Virtual Tables used in classes for easier analysis of other games. This article talks about how to extract structs from Vtables in Splatoon 2.
 

@@ -108,17 +108,4 @@ class GOTReconstructor:
                         pass
                     else:
                         self.__ReconstructWithSymbol(now, mangled_definition)
-            now += offset
-            
-if(__name__ == '__main__'):
-    pass
-    # # ACNH
-    # GOTReconstructor(0x0000000084536D70,0x000000008453A798).Reconstruct()
-    
-    # # MK8D
-    # GOTReconstructor(0x01F80674, 0x01F89AD8).Reconstruct(offset = 4)
-    # GOTReconstructor(0x011154A8, 0x011160F4).Reconstruct(offset = 4)
-    
-    # # Splatoon 2
-    # GOTReconstructor(0x837D38E8, 0x837E22E8).Reconstruct()
-    # GOTReconstructor(0x82CFF620, 0x82D50000).Reconstruct()
+            now += 8

@@ -38,11 +38,19 @@ Movie & Codec Library에서 사용하는 OSS는 다음과 같다.
 ---
 
 [1] https://www.nintendo.co.jp/support/oss/
+
 [2] https://www.nintendo.co.jp/support/oss/data/NintendoSwitch_OpenSources16.1.0.zip
+
 [3] https://www.nintendo.co.jp/support/oss/data/NintendoSDKLibrary_OpenSources.zip
+
 [4] https://bbs.ruliweb.com/nin/board/300004/read/2118096
+
 [5] https://www.nintendo.co.jp/support/oss/data/NintendoSwitchParentalControls_1.0.0_OSS.zip
+
 [6] https://firefox-source-docs.mozilla.org/nspr/index.html
+
 [7] https://firefox-source-docs.mozilla.org/security/nss/index.html#network-security-services-nss
+
 [8] https://webkit.org/ 
+
 [9] https://en.wikipedia.org/wiki/Advanced_Audio_Coding

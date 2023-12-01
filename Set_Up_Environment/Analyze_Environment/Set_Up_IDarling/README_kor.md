@@ -39,7 +39,7 @@ RestartSec=10s
 WantedBy=multi-user.target
 ```
 
-김지태 : 이래도 문제가 생긴다면… 꼭 꼭 
+만약 문제가 생기면 아래처럼 설치하면 해결된다.
 
 ```python
 python -m pip install pyqt5 --upgrade

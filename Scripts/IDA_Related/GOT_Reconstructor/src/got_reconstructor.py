@@ -108,4 +108,4 @@ class GOTReconstructor:
                         pass
                     else:
                         self.__ReconstructWithSymbol(now, mangled_definition)
-            now += 8
+            now += offset

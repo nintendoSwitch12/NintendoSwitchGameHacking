@@ -6,7 +6,7 @@
 - update game (event)
 - render
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/ac36cf46-0d88-4736-8cf7-635d3ef9757b/Untitled.png)
+![](./img/1.png)
 
 이 글에서는 닌텐도 스위치 게임에서 main loop로 가는 과정과, 스위치 게임의 동작 방식을 간략 서술한 글이다.
 
@@ -127,7 +127,7 @@ sead::GameFrameworkNx::mainLoop_(void)
 
 ---
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/5bed7de5-6782-4d18-9a47-686db3dd5833/Untitled.png)
+![](2.png)
 
 # main loop(Thread) 분석
 
@@ -203,7 +203,7 @@ Render를 수행하는 부분을 제외하고 각 함수의 동작은 다음과 
 ## 요약 그림
 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/a63c5327-f25b-409c-b8bf-f4491fecfb3a/Untitled.png)
+![](3.png)
 
 # Main thread의 Delegate 분석
 
@@ -223,7 +223,7 @@ Delegate는 Multi-Threading 환경에서 사용될 수 있으며 Callback 구현
 
 ## sead::Delegate<Lp::Net::EnlTask>
 
----
+
 
 이 타입의 Delegate를 통해 호출되는 함수는 다음과 같다.
 
@@ -245,7 +245,7 @@ __int64 Lp::Net::EnlTask::calcAfterScene()
 
 ## sead::Delegate<gsys::SystemTask>
 
----
+
 
 - gsys::SystemTask::postDrawTV_
 - gsys::SystemTask::postCalc_
@@ -370,7 +370,7 @@ Multi-Threading을 지원하는 대부분의 게임은 Job(Task) System을 통�
 
 그림으로 표현하면 다음과 같다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/73933863-54e6-43d7-8896-f9824b9ecd14/Untitled.png)
+![](4.png)
 
 ## Actor
 

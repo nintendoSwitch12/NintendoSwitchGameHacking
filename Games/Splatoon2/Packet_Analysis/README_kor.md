@@ -159,8 +159,6 @@ enl::PiaUtil::SearchSession -> enl::PiaFramework::dispatch
 
 ### Pia class Serialize & Deserialize
 
----
-
 ```c
 _BYTE *__fastcall nn::pia::common::serializeU64(_BYTE *this, unsigned __int8 *a2)
 {

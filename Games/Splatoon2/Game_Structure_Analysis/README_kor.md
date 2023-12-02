@@ -127,7 +127,7 @@ sead::GameFrameworkNx::mainLoop_(void)
 
 ---
 
-![](2.png)
+![](./img/2.png)
 
 # main loop(Thread) 분석
 
@@ -203,7 +203,7 @@ Render를 수행하는 부분을 제외하고 각 함수의 동작은 다음과 
 ## 요약 그림
 
 
-![](3.png)
+![](./img/3.png)
 
 # Main thread의 Delegate 분석
 
@@ -370,7 +370,7 @@ Multi-Threading을 지원하는 대부분의 게임은 Job(Task) System을 통�
 
 그림으로 표현하면 다음과 같다.
 
-![](4.png)
+![](./img/4.png)
 
 ## Actor
 

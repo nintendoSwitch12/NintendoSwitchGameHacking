@@ -103,7 +103,11 @@ tshark -i 3 -Y 'tcp.port == 80 && ip.addr == 192.168.1.10' -t a --color
 `-t` : 시간 옵션
 `—color` : 색 옵션
 위에 명령어를 실행하면 /tmp에 .pcapng 파일이 생긴다.
-## ENL Task Thread
+## ENL Task Thread 분석
+### 개요
+아래 모든 분석은 Splatoon2에서 진행했다.
+### 패킷 수신
+![](./img/3.png)
 
 실질적으로 ENL 관련 처리하는 쓰레드이다.
 

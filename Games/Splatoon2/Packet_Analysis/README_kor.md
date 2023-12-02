@@ -107,7 +107,7 @@ tshark -i 3 -Y 'tcp.port == 80 && ip.addr == 192.168.1.10' -t a --color
 ### 개요
 아래 모든 분석은 Splatoon2에서 진행했다.
 ### 패킷 수신
-![](./img/3.png)
+![](./img/3.png){: width="100" height="100"}
 
 실질적으로 ENL 관련 처리하는 쓰레드이다.
 

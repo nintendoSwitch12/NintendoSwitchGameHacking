@@ -30,7 +30,7 @@ To execute functions from an NSO file in QEMU, follow these steps
 3. If you get an error while executing the SDK function, patch the code to fix the error.
 
 > [!IMPORTANT]
-> The defined variable [`kSDKAddress`](./src/src/sdk.h) may be differnet depending on what game use the SDK.
+> The defined variable [`kSDKAddress`](./src/src/sdk.h) and [`kSDKSize`](./src/src/sdk.h) may be differnet depending on what game use the SDK.
 > So before you use this, you should set the right address.s
 
 # Example

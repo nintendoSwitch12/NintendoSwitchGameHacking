@@ -16,7 +16,7 @@ void* LoadSDK(const char* sdk_path)
         printf("Failed to open %s\n", sdk_path);
         return 0;
     }
-    void* addr = mmap((void*)kSDKAddress, 0xCD4060, PROT_EXEC | PROT_READ, MAP_PRIVATE, fd, 0);
+    void* addr = mmap((void*)kSDKAddress, kSDKSize, PROT_EXEC | PROT_READ, MAP_PRIVATE, fd, 0);
     close(fd);
 
     return addr;

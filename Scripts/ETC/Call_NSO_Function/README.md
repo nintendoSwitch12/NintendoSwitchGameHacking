@@ -37,8 +37,8 @@ To execute functions from an NSO file in QEMU, follow these steps
 
 An example of calling a SDK function, `GenerateHmacSha256Mac` to get the hash of a thumbnail file can be found at the following address
 
-[Example: Call GenerateHmacSha256Mac](./src/example/GenerateHmacSha256Mac/)
-[Example: Encrypt and Decrypt PIA](./src/example/EncryptAndDecryptPIA/)
+- [Example: Call GenerateHmacSha256Mac](./src/example/GenerateHmacSha256Mac/)
+- [Example: Encrypt and Decrypt PIA](./src/example/EncryptAndDecryptPIA/)
 
 [^1]: https://switchbrew.org/wiki/NSO
 [^2]: https://github.com/pgarba/SwitchIDAProLoader

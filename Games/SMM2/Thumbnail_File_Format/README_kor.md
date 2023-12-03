@@ -34,7 +34,7 @@ struct EncrpytionConfig
 
 썸네일 파일은 Course 파일과 마찬가지로 크기가 정해져 있으며, 그 크기는 0x1BFD0 Byte이다. JPEG 포맷에 무결성 검사를 위한 Hash 값과 Seed 값을 덧붙인 형태이다. 
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/53c32fac-844a-4648-a663-d8f6b5004d36/Untitled.png)
+![](./img/1.png)
 
 ```cpp
 struct Thumbnail // size is always 0x1BFD0
@@ -92,7 +92,7 @@ SHA-256 with HMAC은 닌텐도 자체 규격을 쓰기 때문에 계산 방법�
 2. SDK에 포함된 함수를 실행할 수 있게 처리 
 3. switchbrew의 [libnx](https://github.com/switchbrew/libnx) 등을 사용
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/79232b90-34fe-456c-b96a-365a04694d0a/Untitled.png)
+![](./img/2.png)
 
 # 암호화
 

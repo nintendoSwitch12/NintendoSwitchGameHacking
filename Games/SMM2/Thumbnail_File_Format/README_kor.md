@@ -98,4 +98,4 @@ SHA-256 with HMAC은 닌텐도 자체 규격을 쓰기 때문에 계산 방법�
 
 실제 세이브 파일에 썸네일을 덮어쓰기 위해서는 암호화 역시 똑같이 거칠 필요가 있다. 해당 암호화 과정은 JiXiaomai의 github에 공개되어 있다.[https://github.com/JiXiaomai/SMM2]
 
-[SMM2 Course 암호화 및 복호화 방법](https://www.notion.so/SMM2-Course-3e797ec0646343e0b4e7848897855a5c?pvs=21) 에 자세히 서술되어 있다.
+[SMM2 Course 암호화 및 복호화 방법](../Course_Analysis/Course_Encryption_Decryption/README_kor.md) 에 자세히 서술되어 있다.

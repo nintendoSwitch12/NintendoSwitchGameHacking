@@ -90,7 +90,7 @@ SHA-256 with HMAC은 닌텐도 자체 규격을 쓰기 때문에 계산 방법�
 
 1. 게임과 함께 첨부된 SDK를 리버싱하여 똑같은 동작을 구현
 2. SDK에 포함된 함수를 실행할 수 있게 처리 
-3. switchbrew의 libnx[https://github.com/switchbrew/libnx] 등을 사용
+3. switchbrew의 [libnx](https://github.com/switchbrew/libnx) 등을 사용
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/2f11a5fa-4e62-4c72-b7e2-a459d91ae122/79232b90-34fe-456c-b96a-365a04694d0a/Untitled.png)
 

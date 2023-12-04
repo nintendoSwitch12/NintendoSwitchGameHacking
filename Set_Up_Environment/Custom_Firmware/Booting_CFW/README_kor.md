@@ -4,7 +4,7 @@
 
 # 개요
 
-[Micro SD 카드 설정](/Set_Up_MicroSD/README_kor.md) 에서 설치한 홈브루(Homebrew) 및 도구들(이하 툴)을 사용하기 위해서는 닌텐도 스위치를 커스텀 펌웨어(이하 CFW)로 부팅할 필요가 있다. 이 글은 닌텐도 스위치에서 CFW 중 가장 유명한 Hekate를 부팅하는 방법에 대한 글이다.
+[Micro SD 카드 설정](../Set_Up_MicroSD/README_kor.md) 에서 설치한 홈브루(Homebrew) 및 도구들(이하 툴)을 사용하기 위해서는 닌텐도 스위치를 커스텀 펌웨어(이하 CFW)로 부팅할 필요가 있다. 이 글은 닌텐도 스위치에서 CFW 중 가장 유명한 Hekate를 부팅하는 방법에 대한 글이다.
 
 # 주의
 

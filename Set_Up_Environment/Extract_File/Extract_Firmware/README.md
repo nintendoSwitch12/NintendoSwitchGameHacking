@@ -1,4 +1,4 @@
-# 펌웨어 추출
+# Extract Firmware
 
 ---
 

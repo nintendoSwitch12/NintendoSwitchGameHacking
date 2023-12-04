@@ -1,4 +1,4 @@
-# Yuzu Public Room Server 설정
+# Set Up Yuzu Public Room Server 
 
 ---
 

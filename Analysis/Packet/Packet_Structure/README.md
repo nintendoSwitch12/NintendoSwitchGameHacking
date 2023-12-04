@@ -1,10 +1,8 @@
 # Common Packet Structure
 
-
 This analysis was conducted in Splatoon 2.
 
 # Overview
-
 
 This article talks about nn::pia::common::Packet class.
 
@@ -58,11 +56,10 @@ struct __attribute__((aligned(8))) nn::pia::common::Packet::Header
 
 ## nn::pia::common::Packet::Header
 
-
 The table below is a structure of nn::pia::common::Packet::Header class holding information on packets. This class contains various methods and data related to packets. 
 
 | offset | type | Description |
-| | | |
+| --- | --- | --- |
 | 0 | offset | vtable |
 | 8 | char[4] | magic (0x32AB9864) |
 | C | u8 | 0x80: Encryption enabled
@@ -87,11 +84,10 @@ The table below is a structure of nn::pia::common::Packet::Header class holding 
 
 # VTable Structure
 
-
-This ****is a vtable structure of nn::pia::common::Packet::Header class
+This is a vtable structure of nn::pia::common::Packet::Header class
 
 | offset | function name | description |
-| | | |
+| --- | --- | --- |
 | 0 | nn::pia::lan::LanMessage::refunc_8252ed30 |  |
 | 8 | nn::pia::common::Packet::Header::~Header | destucture |
 | 10 | nn::pia::common::Packet::Header::Serialize | Serialize Packet (패킷에 헤더를 삽입함) |
@@ -100,11 +96,10 @@ This ****is a vtable structure of nn::pia::common::Packet::Header class
 
 # Methods(base 0x80000000)
 
-
 Below is a list of methods of nn::pia::common::Packet when the base address is set to 0x80000000. 
 
 | address | function name | description |
-| | | |
+| --- | --- | --- |
 | 0x8253BD00 | nn::pia::common::Packet::PacketData::SerializeHeader | Serialize Packet (Inserts header to a packet) |
 | 0x8253BD30 | nn::pia::common::Packet::Header::Serialize | Serialize Packet (Inserts header to a packet) |
 | 0x8253BEA0 | nn::pia::common::Packet::PacketData::DeserializeHeader | Deserialize Packet (Parses packet’s header) |
@@ -124,6 +119,7 @@ Below is a list of methods of nn::pia::common::Packet when the base address is s
 | 0x8253C700 | nn::pia::common::Packet::Header::~Header | Distructure |
 | 0x8253C710 | nn::pia::common::Packet::Header::GetSerializedSize | Header size(always 0x20) |
 
-# Parent Func
+# Parent
+
 
 nn::pia::common::ISerializable

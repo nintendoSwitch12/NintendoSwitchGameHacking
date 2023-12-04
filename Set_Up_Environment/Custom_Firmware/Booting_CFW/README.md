@@ -1,4 +1,4 @@
-# CFW(Hekate) 부팅
+# Booting CFW(Hekate)
 
 ---
 

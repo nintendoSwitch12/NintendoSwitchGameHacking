@@ -12,7 +12,7 @@ IDA 협업 플러그인을 이용한 정적 분석 환경 구성하는 글이다
 
 ufw에서 포트를 열어주고, 공유기에서 포트포워딩을 진행했다.
 
-```jsx
+```bash
 git clone [https://github.com/fidgetingbits/IDArling](https://github.com/fidgetingbits/IDArling)
 cd IDArling
 pip3 install -r requirements.txt
@@ -23,7 +23,7 @@ sudo python3 setup.py build
 
 /etc/systemd/system/idaserver.service에 service 파일을 추가한다.
 
-```jsx
+```bash
 [Unit]
 Description=Ida Server
 After=syslog.target network.target network-online.target

@@ -58,6 +58,6 @@
 
 # Decrypt and Decompress
 
-[Decrypt and Decompress](%E1%84%92%E1%85%AA%E1%86%AB%E1%84%80%E1%85%A7%E1%86%BC%20%E1%84%80%E1%85%AE%E1%84%89%E1%85%A5%E1%86%BC%20%E1%84%8E%E1%85%A2%E1%86%B8%E1%84%90%E1%85%A5%202825ca23475d47a28683aa23f0c8e33c/%E1%84%82%E1%85%B5%E1%86%AB%E1%84%90%E1%85%A6%E1%86%AB%E1%84%83%E1%85%A9%20%E1%84%91%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AF%20%E1%84%87%E1%85%A9%E1%86%A8%E1%84%92%E1%85%A9%E1%84%92%E1%85%AA%20%E1%84%86%E1%85%B5%E1%86%BE%20Decompress%203a0e6c5e843c452799c3d8093acc7352.md)
+[Decrypt and Decompress](Decrypt_and_Decompress/README.md)
 
 [^1]: https://github.com/fidgetingbits/IDArling

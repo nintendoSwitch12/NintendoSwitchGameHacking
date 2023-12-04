@@ -1,4 +1,4 @@
-# IDArling[^1] 환경 구성
+# Setting IDArling[^1]
 
 ---
 

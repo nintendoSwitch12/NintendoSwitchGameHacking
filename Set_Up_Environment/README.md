@@ -24,7 +24,7 @@
 
 [Set Up Debuging](Analyze_Environment/Set_Up_Debuging/README.md)
 
-## YUZU 설정
+## YUZU Setting
 
 ### Joycon Connect
 

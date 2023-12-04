@@ -1,4 +1,4 @@
-# Micro SD 카드 설정
+# Set Up Micro SD
 
 ---
 

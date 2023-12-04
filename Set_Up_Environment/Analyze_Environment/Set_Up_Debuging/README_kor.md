@@ -32,22 +32,6 @@ enable_standalone_gdbstub = u8!0x1
 sudo apt-get install -y gdb-multiarch
 ```
 
-### Edizon SE 설치
-
-edizon se github에서 zip파일을 받는다[^1].
-
-![EdizonSE_1](img/EdizonSE_1.png)
-
-압축을 풀면 위 두 폴더가 있는데 안에 있는 폴더를 sd 카드에 넣으면 된다.
-
-![EdizonSE_2](img/EdizonSE_2.png)
-
-위처럼 Edizon atmosphere에 있는 폴더를 sd 카드 안에 있는 switch 폴더에 넣는다.
-
-![EdizonSE_3](img/EdizonSE_3.png)
-
-똑같이 switch 폴더 안에 있는 Edizon하고 breeze 폴더를 sd 카드 안에 있는 switch 폴더로 옮긴다.
-
 ## 게임 디버깅
 
 ### GDB 연결
@@ -187,6 +171,5 @@ edit→Segments→Rebase program을 누른다.
 
 위에서 Value에 계산한 값을 넣으면 정확한 위치에서 재배치가 된다.
 
-[^1]: https://github.com/tomvita/EdiZon-SE
-[^2]: https://yuzu-emu.org/help/quickstart/
-[^3]: https://github.com/oMaN-Rod/nxDumpFuse/releases/tag/v1.0.3
+[^1]: https://yuzu-emu.org/help/quickstart/
+[^2]: https://github.com/oMaN-Rod/nxDumpFuse/releases/tag/v1.0.3

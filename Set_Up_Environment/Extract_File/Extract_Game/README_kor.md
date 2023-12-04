@@ -44,7 +44,7 @@ Split files bigger than 4 GiB (FAT32 support): Yes
 
 추출된 파일은 SD카드의 switch/nxdumptool/ExeFS/(게임명)/*이다.
 
-[Exefs_1](img/Exefs_1.png)
+![Exefs_1](img/Exefs_1.png)
 
 ## NSP 추출
 
@@ -56,7 +56,7 @@ Split files bigger than 4 GiB (FAT32 support): Yes
 
 추출된 파일은 SD카드의 switch/nxdumptool/NSP/(게임명)/[N+]이다.
 
-[NSP_1](img/NSP_1.png)
+![NSP_1](img/NSP_1.png)
 
 ## XCI 추출
 
@@ -70,7 +70,7 @@ CRC32 checksump calculation + dump verification: No
 
 추출된 파일은 SD카드의 switch/nxdumptool/XCI/(게임명).xc[N+]이다.
 
-[XCI_1](img/XCI_1.png)
+![XCI_1](img/XCI_1.png)
 
 # 업데이트 / e-shop 데이터 추출
 

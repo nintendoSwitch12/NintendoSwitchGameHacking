@@ -1,36 +1,60 @@
-# Nintendo Switch 구조
-## 개요
-Splatoon2, Super Mario Maker2를 보면서 공통적인 특성을 갖고 있는 것을 발견했다.
-분석에 참고될만해보여서 글로 작성한다.
-## 구조
-### 다이어그램
+# Nintendo Switch 구조 분석
 
-![Diagram](./img/1.png)
+# Overview
 
-### 프로세스 메모리 구조
 
-![Memory_Structure](./img/2.png)
+Looking at Splatoon 2 and Super Mario Maker 2, I found that they had common characteristics.
 
-### 설명 
-스위치의 게임들은 기본적으로 세가지가 함께 올라간다.
-Rtld, Main, SDK. 
-SDK는 shared library같은 역할을 수행한다.
-Rtld는 게임이 로드되고 제일 먼저 실행되며 초기화를 진행한다.
-Sdk의 대부분의 함수들은 심볼이 있다.
+I write it down because it seems like it can be used as a reference for the analysis.
 
-### RTLD
-dlsym과 유사한 함수가 존재한다.
-가장 흔한 패턴은 Sdk에서 함수가 동작하면서 Rtld 영역의 있는 dlsym같은 함수를 이용하여 symbol resolve이후 sdk의 함수를 호출하는 경우다.
-Sdk가 어떤 함수를 호출하면 rtld로 심볼 resolve해서 got을 수정한다
-실제 초기에 호출할 때 그 함수 포인터에는 rtld의 symbol resolve 함수의 주소가 적혀있다. 
-symbol resolve된 주소가 테이블에 쓰여지며 동작한다.
-```
+# Structure Map
+
+
+## Outline
+
+
+![asdfasfasdfasd.asdf.png](./img/1.png)
+
+## Process Memory Structure
+
+
+
+![asdfsadff.png](./img/2.png)
+
+# Setting
+
+When Nintendo Switch games are loaded, 3 basic memory modules are loaded on to memory : 
+
+1. Rtld - First module to be executed for initializing values.
+2. Main - Contains the game logic.
+3. SDK - Works as shared library. 
+
+(The overall structure is similar to Linux)
+
+# Memory modules
+
+
+## Rtld
+
+
+A function similar to dlsym exists.
+
+The most common pattern is when the function operates in Sdk and calls the function of sdk after symbol resolve using a function such as dlsym in the Rtld area.
+
+When Sdk calls a function, it corrects the get by restoring the symbol to rtld
+
+The function pointer has the address of the symbol resolve function of rtld when it is actually called at the beginning.
+
+The symbol-resolved address is written to the table and works.
+
+```python
 __int64 sub_83386660()
 {
   return qword_83A787A0();
 }
 ```
-```
+
+```python
 .text_rtld0:0000000080001624 LDR             X17, [SP,#arg_0]
 .text_rtld0:0000000080001628 STR             X29, [SP,#arg_0]
 .text_rtld0:000000008000162C STP             X8, X19, [SP,#var_10]!
@@ -64,10 +88,12 @@ __int64 sub_83386660()
 .text_rtld0:000000008000169C BR              X16
 .text_rtld0:000000008000169C ; End of function sub_80001624
 .text_rtld0:000000008000169C
-.text_rtld0:000000008000169C ; ----------
+.text_rtld0:000000008000169C ; -
 ```
-Code로 인식시키고 함수로 만들어주면 아래와 같은 결과를 확인할 수 있다.
-```
+
+**If you recognize it as a code and make it a function, you can check the following results.**
+
+```python
 // positive sp value has been detected, the output may be wrong!
 __int64 __fastcall sub_80001624(
         __int64 a1,
@@ -88,8 +114,56 @@ __int64 __fastcall sub_80001624(
   return v9(a1, a2, a3, a4, a5, a6, a7, a8);
 }
 ```
-위와 같은 패턴이 사용되면서 symbol을 통해 특정 함수를 찾는다.
+
+**In fact, as the above pattern is used, a specific function is found through symbol.**
+
+```python
+.text_rtld0:0000000080000C80 SUB             SP, SP, #0x80
+.text_rtld0:0000000080000C84 STP             X22, X21, [SP,#0x70+var_20]
+.text_rtld0:0000000080000C88 STP             X20, X19, [SP,#0x70+var_10]
+.text_rtld0:0000000080000C8C STP             X29, X30, [SP,#0x70+var_s0]
+.text_rtld0:0000000080000C90 ADD             X29, SP, #0x70
+.text_rtld0:0000000080000C94 LDRB            W8, [X0,#0x30]
+.text_rtld0:0000000080000C98 MOV             W20, W1
+.text_rtld0:0000000080000C9C MOV             X19, X0
+.text_rtld0:0000000080000CA0 CBZ             W8, loc_80000D28
+.text_rtld0:0000000080000CA4 LDR             X21, [X19,#0x10]
+.text_rtld0:0000000080000CA8 MOV             W9, #0x18
+.text_rtld0:0000000080000CAC UMADDL          X10, W20, W9, X21
+.text_rtld0:0000000080000CB0 LDR             X8, [X19,#0x68]
+.text_rtld0:0000000080000CB4 SUB             X1, X29, #-var_28
+.text_rtld0:0000000080000CB8 ADD             X2, SP, #0x70+var_58
+.text_rtld0:0000000080000CBC LDR             W10, [X10,#0xC]
+.text_rtld0:0000000080000CC0 MADD            X8, X10, X9, X8
+.text_rtld0:0000000080000CC4 LDUR            X9, [X8,#4]
+.text_rtld0:0000000080000CC8 LDUR            X10, [X8,#0xC]
+.text_rtld0:0000000080000CCC LDR             W11, [X8,#0x14]
+.text_rtld0:0000000080000CD0 LDR             W22, [X8]
+.text_rtld0:0000000080000CD4 STP             X9, X10, [SP,#0x70+var_40]
+.text_rtld0:0000000080000CD8 MOV             W8, W11
+.text_rtld0:0000000080000CDC STR             W8, [SP,#0x70+var_44]
+.text_rtld0:0000000080000CE0 LDR             X8, [SP,#0x70+var_40]
+.text_rtld0:0000000080000CE4 MOV             X9, X10
+.text_rtld0:0000000080000CE8 MOV             X0, X19
+.text_rtld0:0000000080000CEC STR             W11, [SP,#0x70+var_30]
+.text_rtld0:0000000080000CF0 STR             W22, [SP,#0x70+var_58]
+.text_rtld0:0000000080000CF4 STUR            X9, [SP,#0x70+var_4C]
+.text_rtld0:0000000080000CF8 STUR            X8, [SP,#0x70+var_54]
+.text_rtld0:0000000080000CFC BL              sub_80000E30
+.text_rtld0:0000000080000D00 TBZ             W0, #0, loc_80000D90
+.text_rtld0:0000000080000D04 LDUR            X8, [X29,#var_28]
+.text_rtld0:0000000080000D08 CBZ             X8, loc_80000E18
+.text_rtld0:0000000080000D0C MOV             W9, W20
+.text_rtld0:0000000080000D10 MOV             W10, #0x18
+.text_rtld0:0000000080000D14 MADD            X9, X9, X10, X21
+.text_rtld0:0000000080000D18 LDR             X9, [X9,#0x10]
+.text_rtld0:0000000080000D1C ADD             X0, X9, X8
+.text_rtld0:0000000080000D20 STUR            X0, [X29,#var_28]
+.text_rtld0:0000000080000D24 B               loc_80000E1C
+.text_rtld0:0000000080000D28 ; --
 ```
+
+```python
 _int64 v20; // [xsp+4h] [xbp-6Ch]
   __int64 v21; // [xsp+Ch] [xbp-64h]
   int v22; // [xsp+14h] [xbp-5Ch]
@@ -155,12 +229,23 @@ LABEL_9:
   return result;
 }
 ```
-Symbol resolve를 한다.
 
-![](./img/3.png)
+**Perform symbol resolution.**
 
-switch mapper.py를 이용해서 쉽게 구분할 수 있다.
+![Untitled](./img/3.png)
+
+**You can easily distinguish it by using switch mapper.py .**
+
+```python
+.text_rtld0:0000000080001690 LDP             X6, X7, [SP+0x20+var_20],#0x10
+.text_rtld0:0000000080001694 LDP             X8, X19, [SP+0x10+var_10],#0x10
+.text_rtld0:0000000080001698 LDP             X29, X30, [SP+arg_0],#0x10
+.text_rtld0:000000008000169C BR              X16
+.text_rtld0:000000008000169C ; End of function sub_80001624
 ```
+
+```python
+
 .data:0000000083A80208 off_83A80208 DCQ sub_83386660           ; DATA XREF: nn::image::detail::ReadJpegHeader(nn::image::detail::JpegInfo *,uchar const*,ulong,uint)↑o
 .data:0000000083A80208                                         ; nn::image::detail::ReadJpegHeader(nn::image::detail::JpegInfo *,uchar const*,ulong,uint)+4↑r ...
 .data:0000000083A80210 off_83A80210 DCQ sub_83386660           ; DATA XREF: nn::image::detail::SetJpegHeader(nn::image::detail::JpegInfo *,ushort,ushort,nn::image::JpegSamplingRatio)↑o
@@ -186,36 +271,67 @@ switch mapper.py를 이용해서 쉽게 구분할 수 있다.
 .data:0000000083A80248                                         ; nn::image::detail::jpeg::jpeg_read_scanlines(nn::image::detail::jpeg::jpeg_decompress_struct *,uchar **,int)+4↑r ...
 .data:0000000083A80250 off_83A80250 DCQ sub_83386660
 ```
-Symbol resolve 이후 위와 같이 Got가 수정된다.
-### SDK
-Lazy binding을 사용한다.
-쓰레드를 생성하는 함수들도 여기에 있다.
-특이한점은 linux libc의 구현도 일부 존재한다는 점이다.
-memcpy, strcmp, puts, strlen 등이 있다.
 
-### Main 
-기본적으로 쓰레드들은 서로 상호작용을 Message queue를 통해 진행한다.
-특정 작업을 전담하는 쓰레드들이 항상 존재한다.
+**After the resolve, the got-like part of the sdk is modified in this way.**
 
-## 시스템 서비스
-여러 서비스들이 존재한다.
-직접 svc를 통한 시스콜을 통해 직접 유저 프로세스가 자원을 접근하는 방식이 아니고, sysmoudules들을 통해 대리로 처리한다. 
-SDK에 API가 존재한다.
-이 API는 특정 시스콜을 통해 시스템 서비스의 핸들을 가져오고, 그 서비스의 메모리가 shared로 매핑된다. IPC를 통해 작업을 처리하기 때문에 유저레벨 프로세스에서 직접 리소스에 접근하여 소켓 연결등을 할 수 없다.
-### 예시
-svc 0x21 SendSyncRequest로 IPC요청을 보낸다.
-실제 패킷을 보내는 부분도 0x21로 IPC로 요청을 보낸다. 
-r— 권한으로 shared메모리가 매핑되어있다.
-결과가 그 readonly shared memory에 들어온다.
-### 시스템콜
-System service는 일반 유저와는 시스템 콜을 이용한다.
-IPC 매핑이나 Accept session 등 여러 시스템 콜을 이용한다.
-일반적으로 그런 시스템콜들은 게임에서 허용되어있지 않으며, 게임에서 그 시스템 콜 호출이 막혀있다.
-## 샌드박스
-npdm 파일에는 그 파일에 대한 권한이 정의되어있다.
+## SDK
 
-![switch_img](./img/4.jpeg)
 
-만약 샌드박스상으로 막힌 시스템 콜을 사용한다면, 패닉이 일어난다.
-SDK 래퍼상으로는 시스콜 호출 코드가 있는 경우가 있었는데, 실제로는 호출이 안되는 것으로 파악된다.
 
+Use Lazy binding.
+
+The functions that generate threads are also here.
+
+The peculiar thing is that some implementations of linux libc also exist.
+
+There are memcpy, strcmp, putts, strlen, etc.
+
+## Main
+
+
+
+# Services
+
+
+
+## System services
+
+
+
+Several services exist.
+
+It is not a method in which a user process directly accesses resources through a direct svc call, but processes resources by proxy through sysmoudules.
+
+API exists in SDK.
+
+This API gets the handle of the system service through a specific ciscoll, and the memory of the service is mapped to shared. Since tasks are handled through IPC, it is impossible to directly access resources and connect sockets in the user-level process.
+
+### Example
+
+Send an IPC request to svc 0x21 SendSyncRequest.
+
+The part that sends the actual packet also sends the request to IPC at 0x21.
+
+r—Shared memory is mapped with permissions.
+
+The result comes into the readonly shared memory.
+
+### syscalls
+
+System service uses system calls with regular users.
+
+It uses multiple system calls such as IPC mapping or accept session.
+
+In general, such system calls are not allowed in the game, and those system call calls are blocked in the game.
+
+# Sandbox
+
+
+
+The npdm files contains a catalog of permissions
+
+![Untitled](./img/4.jpeg)
+
+Therefore, if one tries to run a syscall that is blocked by Sandbox, kernel panic would occur. 
+
+There are many syscall defined in SDK wrapper. However, some of them are blocked by the OS and not used.

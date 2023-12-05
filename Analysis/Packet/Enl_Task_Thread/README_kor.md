@@ -1,10 +1,6 @@
-# 스플래툰 enl task thread분석
+# enl task thread분석
 
-생성 날짜: 2023년 9월 16일
-범주: Splatoon2
-작성자: MSH
-상태: 수정 완료
-담당자: MSH
+모든 분석은 스플래툰2에서 수행되었습니다.
 
 # Packet receive
 

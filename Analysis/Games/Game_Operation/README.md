@@ -337,18 +337,15 @@ If there is a name for Thread on the Nintendo Switch, perform the appropriate ta
 - gsys::SystemJob::invoke
 - sead::Job0<Lp::Sys::Actor>::invoke
 
-gsys, LayerJob are graphics related tasks so ignore them.
-
-Then there are two functions left.
+Here, methods with gsys or LayerJob do graphics related tasks so we can ignore them. Then the following job is left.
 
 - sead::Job0<Lp::Sys::Actor>::invoke
 
-
-The lead:Job0<Lp::Sys::Actor>::invoke function continues to execute the function as in the image.
+The method above will call sead::Delegate<Lp::Sys::Actor>::invoke and sead::Delegate<Lp::Sys::Actor>::invoke will call the following function
 
 - Lp::Sys::Actor::actorSysCalc
 
-그림으로 표현하면 다음과 같다.
+This can be illustrated as below
 
 ![Untitled](./img/4.png)
 

@@ -192,7 +192,7 @@ After waiting for all tasks to complete, delete all tasks and add a new Root Tas
 
 ![Untitled](./img/3.png)
 
-# Main thread의 Delegate 분석
+# Main thread의 Delegate analysis
 
 Delegate can be used in a multi-threading environment and can be used in callback, event-driven multi-threading implementation, etc. The following are the types of Delegates used by the Nintendo Switch application Main Thread.
 

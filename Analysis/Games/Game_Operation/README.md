@@ -163,7 +163,7 @@ Except for rendering, the operation of each function is as follows.
 
 ## sead::TaskMgr::afterCalc
 
-This function immediately calls seed::TaskMgr::calcDestruction_. The lead:TaskMgr::calcDestruction_ function traverses the Task list, and removes the task from the list when the task is finished. And get rid of all the tasks.
+This function immediately calls seed::TaskMgr::calcDestruction_. The lead:TaskMgr::calcDestruction_ function traverses the Task list, and removes the task from the list when the task is finished. Finally, finished tasks are all removed.
 
 ## sead::GameFrameworkNx::procCalc_
 

@@ -187,7 +187,7 @@ Here, the imported tasks are performed in Main Thread. In addition, this functio
 
 After waiting for all tasks to complete, delete all tasks and add a new Root Task.
 
-## 요약 그림
+## Summary Illustration
 
 
 ![Untitled](./img/3.png)

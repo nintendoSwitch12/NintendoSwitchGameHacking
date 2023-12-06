@@ -1,7 +1,7 @@
 # 스플래툰 게임 동작 방법
 
 
-Thisanalysis was conducted in Splatoon 2
+This analysis was conducted in Splatoon 2
 
 
 

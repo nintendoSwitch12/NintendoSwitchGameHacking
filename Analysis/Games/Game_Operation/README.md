@@ -69,7 +69,7 @@ if ( result && *(unsigned __int8 *)(result + 4) >= 0x10u )
   *(_QWORD *)(*(_QWORD *)(result + 8) + v30[4]) = 21496LL;
 ```
 
-## nnMain ~ main loop 까지과정
+## Internal workings from nnMain to the main loop 
 
 
 All applications on Nintedno Switch begins with the function nnMain. Therefore, all functions can be searched from nnMain in a top-down manner.

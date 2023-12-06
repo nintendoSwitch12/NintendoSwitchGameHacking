@@ -168,8 +168,7 @@ This function immediately calls seed::TaskMgr::calcDestruction_. The lead:TaskMg
 ## sead::GameFrameworkNx::procCalc_
 
 
-This function creates a task through the lead::TaskMgr::beforeCalc function. And invoke each Delegate through the lead::MethodTreeNode::call function. In other words, it is a function that allows you to perform an actual task.
-
+This function creates a task through the sead::TaskMgr::beforeCalc function. Then, it calls each Delegate through the sead::SingleScreenMethodTreeMgr::calc -> sead::MethodTreeNode::call function. In other words, this function is responsible for executing the actual task.
 
 The following are the delegates called in this function.
 
@@ -180,19 +179,18 @@ The following are the delegates called in this function.
 - sead::Delegate<sead::CalculateTask>
 - sead::Delegate<sead::MethodTreeNode>
 
-Here, the imported tasks are performed in Main Thread. In addition, this function also calls the seed::FixedSizeJQ::enque function and the seed::FixedSizeJQ::run function. The lead::FixedSizeJQ::enque function adds a job to the JobQue, and the lead::FixedSizeJQ::run function performs functions in the JobQueue.
+Here, the invoked tasks are performed in Main Thread. In addition, this function also calls the two functions : sead::FixedSizeJQ::enque and sead::FixedSizeJQ::run. The sead::FixedSizeJQ::enque function adds a job to the JobQueue, and the sead::FixedSizeJQ::run function performs functions in the JobQueue.
 
 ## sead::Framework::procReset_
 
-
-After waiting for all tasks to complete, delete all tasks and add a new Root Task.
+Wait until all tasks are completed, then delete all tasks and add a new root task.
 
 ## Summary Illustration
 
 
 ![Untitled](./img/3.png)
 
-# Main thread의 Delegate analysis
+# Delegate in Main thread
 
 Delegate can be used in a multi-threading environment and can be used in callback, event-driven multi-threading implementation, etc. The following are the types of Delegates used by the Nintendo Switch application Main Thread.
 
@@ -203,17 +201,17 @@ Delegate can be used in a multi-threading environment and can be used in callbac
 - sead::CalculateTask
 - sead::MethodTreeNode
 
-In this sector, functions called by each type of Delegate are briefly analyzed.
+In this section, functions called by each type of Delegate are briefly summarized.
 
 ## sead::Delegate<Lp::Net::EnlTask>
 
 
-The following is a function called through Lp::Net:EnlTask Delegate.
+The following is a function called through this Delegate.
 
 - Lp::Net::EnlTask::calcAfterScene
 
 
-This is Lp::Net::EnlTask::calcAfterScene.
+The Lp::Net::EnlTask::calcAfterScene function looks like below.
 
 ```
 __int64 Lp::Net::EnlTask::calcAfterScene()
@@ -234,9 +232,7 @@ __int64 Lp::Net::EnlTask::calcAfterScene()
 - gsys::SystemTask::preCalc_
 - gsys::SystemTask::drawTV_
 
-Functions called in this Delegate are functions related to graphic rendering.
-
-gsys is presumed to be an abbreviation for graphic system
+Functions called by Delegate are related to graphic rendering (gsys is presumed to be an abbreviation for graphic system)
 
 ## sead::Delegate<sead::CalculateTask>
 
@@ -280,17 +276,17 @@ gsys is presumed to be an abbreviation for graphic system
 ## sead::Delegate<sead::MethodTreeNode>
 
 
-No function is called through sead::MethodTreeNode.
+No function is called by sead::MethodTreeNode.
 
 ## sead::Delegate<Lp::Sys::DbgCameraMgr>
 
 
-No function is called through Lp::Sys::DbgCameraMgrDelegate.
+No function is called by Lp::Sys::DbgCameraMgrDelegate.
 
 ## sead::Delegate<Lp::UI::UIMgr>
 
 
-No function is called through Lp::UI::UIMgr.
+No function is called by Lp::UI::UIMgr.
 
 # JobQueue & WorkerMgr/Worker Thread
 
@@ -326,7 +322,7 @@ The following is a list of threads that exist on the Nintendo Switch.
 - nn::atk::detail::TaskThread
 - nn::atk::detail::driver::SoundThread
 
-If there is a name for Thread on the Nintendo Switch, perform the appropriate task for that name. However, in the case of Worker Thread, the following tasks are performed.
+Most threads perform the task its name suggests. However, in the case of Worker Thread, the following tasks are performed.
 
 - Lp::Sys::CalcInGSysCalc::CalcInGSysCalc_DefaultJob::invoke
 - agl::lyr::LayerJob::invoke
@@ -352,13 +348,13 @@ This can be illustrated as below
 ## Actor
 
 
-Actor means that it is related to an object that can be controlled by a player or AI. In other words, it can be seen that the Lp::Sys::Actor::factorSysCalc function found above is a function that performs operations related to these entities.This function calls three functions.
+Actor means that it is related to an object that can be controlled by a player or AI. In other words, Lp::Sys::Actor::factorSysCalc can be seen as a function performs operations related to these entities. This function calls three functions. 
 
 - Cmn::Actor::actorCalc
 - Lp::Sys::Actor::actorSysCalc
 - Cmn::Actor::actorCalc_PostChildCalcByThis
 
-The important function here is the Cmn::Actor::factorCalc function.
+The important function here is the Cmn::Actor::actorCalc.
 
 ```
 Lp::Sys::Actor* Cmn::Actor::actorCalc(int step)
@@ -418,4 +414,4 @@ Lp::Sys::Actor* Cmn::Actor::actorCalc(int step)
 }
 ```
 
-This function performs operations related to interactable objects according to the steps. Therefore, this function performs operations such as damage calculation.
+This function performs operations with objects that can interact using a switch case. Therefore, this function performs operations such as damage calculation.

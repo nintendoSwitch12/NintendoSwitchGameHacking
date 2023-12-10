@@ -11,4 +11,4 @@ Click to start!
 Tools and overviews that created by our team for analysis.
 
 ## [Analysis](https://github.com/nintendoSwitch12/NintendoSwitchGameHacking/tree/main/Analysis)
-Examples useful for game analysis. About games, packets, switch, etc. 
+Useful examples for game analysis. About games, packets, switch, etc. 

@@ -14,3 +14,6 @@ Tools and overviews that created by our team for analysis.
 
 ## [Analysis](./Analysis/)
 Useful examples for game analysis. About games, packets, switch, etc. 
+
+# Bug Bounty
+- [512$] Multiplayer impairment in Super Mario Maker 2

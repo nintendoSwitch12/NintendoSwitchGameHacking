@@ -16,4 +16,5 @@ Tools and overviews that created by our team for analysis.
 Useful examples for game analysis. About games, packets, switch, etc. 
 
 # Bug Bounty
+- [512$] Nullptr Dereference in Animal Crossing: New Horizen (2023) (Team 게임뭐같이하네)
 - [512$] Multiplayer impairment in Super Mario Maker 2
